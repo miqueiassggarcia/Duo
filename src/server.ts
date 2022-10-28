@@ -7,7 +7,7 @@ const app = express();
 
 app.get("/ads", (request, response) => {
   return response.json([
-    { id: 1, name: user.getNome() },
+    { id: 1, name: user.getnome },
     { id: 2, name: "Post 2" },
   ])
 })
