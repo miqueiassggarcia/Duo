@@ -6,7 +6,7 @@ export default class Usuario {
   private nome: string;
   private sexo: string;
   private email: string;
-  private urlImage: string;
+  private link_foto: string;
   private gerenciadorNotificacoes: GerenciadorNotificacoes;
   private gerenciadorDeTags: GerenciadorDeTags;
   private gerenciadorDeJogos: GerenciadorDeJogos;
@@ -15,7 +15,7 @@ export default class Usuario {
     this.nome = nome;
     this.sexo = sexo;
     this.email = email;
-    this.urlImage = "";
+    this.link_foto = "";
     this.gerenciadorNotificacoes = new GerenciadorNotificacoes;
     this.gerenciadorDeTags = new GerenciadorDeTags;
     this.gerenciadorDeJogos = new GerenciadorDeJogos;

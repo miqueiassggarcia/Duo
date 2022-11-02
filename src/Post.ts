@@ -1,7 +1,7 @@
 import Usuario from "./Usuario";
 import Jogos from "./Jogo";
 
-class Post {
+export default class Post {
   private dataDePostagem: Date;
   private titulo: String;
   private descricao: String;
@@ -26,7 +26,7 @@ class Post {
     }
 
   enviarMensagem(mensagem: string, idUsuario: number, idUsuarioDestinatario: number) {
-    queryParaNotificaçõesDousuario(idUsuarioDestinatario).add(idUsuario, mensagem)
+//queryParaNotificaçõesDousuario(idUsuarioDestinatario).add(idUsuario, mensagem)
   }
   
   getDataDePostagem() {
