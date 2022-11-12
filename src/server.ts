@@ -1,19 +1,32 @@
-import express from "express";
-import Usuario from "./Usuario";
-
-let user: Usuario = new Usuario("carlos", "M", "eu@email.com");
+import express from 'express';
+import { Request, Response } from 'express';
+import passport from 'passport';
+import LocalStrategy from 'passport-local';
+import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
+import session from 'express-session';
+import cors from 'cors';
 
 const app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
+app.use(cors({credentials: true}));
+app.use(session({
+  secret: 'SECRET',
+  resave: true,
+  saveUninitialized: true
+}));
+app.use(cookieParser());
+app.use(passport.initialize());
+app.use(passport.session());
 
-app.get("/ads", (request, response) => {
-  return response.json([
-    { id: 1, name: user.getnome() },
-    { id: 2, name: "Post 2" },
-  ])
+
+app.get('/', (req: Request, res: Response) => {
+  res.send('Hello World!');
 })
 
-app.get('/', (req, res) => {
-  res.send("Esse tal de fabio é gay^2");
-})
 
-app.listen(3333);
+const PORT: number = 8080;
+app.listen(PORT, (): void => {
+  console.log('servidor rodando na porta', PORT);
+});
