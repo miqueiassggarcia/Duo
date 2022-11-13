@@ -1,5 +1,5 @@
 import express from 'express';
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from "express";
 import passport from 'passport';
 import LocalStrategy from 'passport-local';
 import bodyParser from 'body-parser';
@@ -24,25 +24,25 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-app.post('/login', passport.authenticate('local', {failureRedirect: '/'}), (req, res) => {
+app.post('/login', passport.authenticate('local', {failureRedirect: '/'}), (req: Request, res: Response) => {
     res.redirect('/profile');
 })
 
-app.get('/logout', (req, res) => {
+app.get('/logout', (req: Request, res: Response) => {
     req.logout((err: express.ErrorRequestHandler) => {
         if (err) { return console.log(err+"\nLogout falhou"); }
         res.redirect("/");
     });
 });
 
-app.use((req, res, next) => {
+app.use((req: Request, res: Response, next: NextFunction) => {
     res.status(404).type('text').send('not found');
 })
 
 
 
 // autenticação de usuarios utilizando passport tem que ficar sempre abaixo dos end-points
-passport.use(new LocalStrategy.Strategy((username, password, done) => {
+passport.use(new LocalStrategy.Strategy((username: string, password: string, done) => {
     db.get('SELECT * FROM users WHERE username=?', [username], (err, user) => {
         if (err) return done(err);
         if (!user) return done(null, false);
@@ -63,7 +63,7 @@ passport.deserializeUser((id, done) => {
 
 
 // Middlewares artesenais
-function ensureAuthenticated(req: express.Request, res: express.Response, next: express.NextFunction) {
+function ensureAuthenticated(req: Request, res: Response, next: NextFunction) {
     if (req.isAuthenticated()) {
         return next();
     }
